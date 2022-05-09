@@ -46,3 +46,5 @@ Issues を確認した上、本プロジェクトを [**Duplicate** してくだ
 ## 参考記事
 
 提出された課題の評価ポイントに関しては、[こちらの記事](https://qiita.com/blendthink/items/aa70b8b3106fb4e3555f)に詳しく書かれてありますので、ぜひご覧ください。
+
+git test
