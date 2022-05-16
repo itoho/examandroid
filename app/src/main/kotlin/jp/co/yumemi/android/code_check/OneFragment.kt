@@ -28,7 +28,7 @@ class OneFragment: Fragment(R.layout.fragment_one){
         val dividerItemDecoration=
             DividerItemDecoration(requireContext(), layoutManager.orientation)
         val adapter= CustomAdapter(object : CustomAdapter.OnItemClickListener{
-            override fun itemClick(item: item){
+            override fun itemClick(item: Item){
                 gotoRepositoryFragment(item)
             }
         })
@@ -53,35 +53,35 @@ class OneFragment: Fragment(R.layout.fragment_one){
         }
     }
 
-    fun gotoRepositoryFragment(item: item)
+    fun gotoRepositoryFragment(item: Item)
     {
-        val _action= OneFragmentDirections
+        val action= OneFragmentDirections
             .actionRepositoriesFragmentToRepositoryFragment(item= item)
-        findNavController().navigate(_action)
+        findNavController().navigate(action)
     }
 }
 
-val diff_util= object: DiffUtil.ItemCallback<item>(){
-    override fun areItemsTheSame(oldItem: item, newItem: item): Boolean
+val diff_util= object: DiffUtil.ItemCallback<Item>(){
+    override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean
     {
-        return oldItem.name== newItem.name
+        return oldItem.name == newItem.name
     }
 
-    override fun areContentsTheSame(oldItem: item, newItem: item): Boolean
+    override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean
     {
-        return oldItem== newItem
+        return oldItem == newItem
     }
 
 }
 
 class CustomAdapter(
     private val itemClickListener: OnItemClickListener,
-) : ListAdapter<item, CustomAdapter.ViewHolder>(diff_util){
+) : ListAdapter<Item, CustomAdapter.ViewHolder>(diff_util){
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
 
     interface OnItemClickListener{
-    	fun itemClick(item: item)
+    	fun itemClick(item: Item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
@@ -94,7 +94,8 @@ class CustomAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
     {
     	val item= getItem(position)
-        (holder.itemView.findViewById<View>(R.id.repositoryNameView) as TextView).text=
+        val repoTextView=holder.itemView.findViewById<View>(R.id.repositoryNameView)
+        if (repoTextView is TextView) repoTextView.text=
             item.name
 
     	holder.itemView.setOnClickListener{
